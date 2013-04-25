@@ -1,0 +1,66 @@
+/* ========================================================== */
+/* = Layout Helpers                                         = */
+/* ========================================================== */
+
+.nav-menu(){
+	list-style-type: none;
+	margin-right:0;
+	margin-bottom:0;
+	padding-left:0;
+}
+
+.circle{
+	.circle();
+}
+
+.circle(){
+	display:block;
+	.border-radius(50%);
+}
+
+.hide{
+	.hide();
+}
+
+.hide(){
+	display:none !important;
+}
+
+
+/* ========================================================== */
+/* = Hack Replacements                                      = */
+/* ========================================================== */
+
+.inline-block(){
+	display: inline-block;
+	*display: inline;
+}
+
+/* ========================================================== */
+/* = Vendor Easing                                          = */
+/* ========================================================== */
+
+.border-radius(@radius: 2px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-khtml-border-radius: @radius;
+	border-radius: @radius;
+	-moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+}
+.box-shadow(@arguments){
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	-ms-box-shadow: @arguments;
+	-o-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+	background: @color;
+	background: -moz-linear-gradient(top, @start 0%, @stop 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(100%,@stop));
+	background: -webkit-linear-gradient(top, @start 0%,@stop 100%);
+	background: -o-linear-gradient(top, @start 0%,@stop 100%);
+	background: -ms-linear-gradient(top, @start 0%,@stop 100%);
+	/*filter:e("progid:DXImageTransform.Microsoft.gradient(startColorStr='")@start e("',EndColorStr='")@stop e("',GradientType=0)");*/
+	background: linear-gradient(top, @start 0%,@stop 100%);
+}

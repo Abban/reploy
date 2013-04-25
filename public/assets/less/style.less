@@ -1,0 +1,115 @@
+/**
+ * Responsable Grid System
+ *
+ * Setting up a responsive grid based on Semantic GS
+ *
+ * @author Abban Dunne http://abandon.ie
+ * @author James Wilson http://jimmynotjim.com
+ * @version 0.9
+ */
+
+
+/* ========================================================== */
+/* = Import normalize, baseline and grid                    = */
+/* ========================================================== */
+
+@import "constants.less";
+@import "libs/normalize.less";
+@import "libs/typeplate.less";
+@import "libs/grid.less";
+@import "libs/mixins.less";
+@import "swatch.less";
+@import "defaults.less";
+@import "settings.less";
+
+/* ========================================================== */
+/* = Your custom styles go here                             = */
+/* ========================================================== */
+
+body{
+	position:relative;
+	background: url(../images/bg.png) @grey_light;
+}
+
+nav#charon{
+	position:fixed;
+	width: 100px;
+	height: 100%;
+	left:0;
+	top:0;
+	bottom:0;
+	background: url(../images/bg-sidebar.png) top left repeat-y #333;
+	ul{
+		text-align: center;
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+		li{
+			display:block;
+			a{
+				display:block;
+				color:#fff;
+				padding: 2em 0;
+				border-bottom: 1px solid rgba(0,0,0,0.2);
+				border-top: 1px solid rgba(255,255,255,0.1);
+				&:hover, &:focus, &.current{
+				
+					background: rgba(255,255,255,0.05);
+				}
+			}
+		}
+	}
+}
+
+div#styx{
+	margin-left:100px;
+}
+
+header#worlds_birth{
+	width: 100%;
+	height: 100px;
+	background:@carbon;
+	border-bottom: 2px solid @carbon_dark;
+	border-left: 1px solid @carbon_light;
+	color:@white;
+	>div{
+		.row();
+		>div{
+			.column(12);
+			>figure{
+				float:left;
+				width: 144px;
+			}
+			>div{
+				float:left;
+				line-height: 40px;
+				margin-top: 30px;
+				padding-left: 1.5em;
+				border-left: 1px solid @carbon_dark;
+				position:relative;
+				&:before{
+					content:'';
+					position:absolute;
+					height: 40px;
+					width: 1px;
+					background:@carbon_light;
+					left:0;
+					top:0;
+				}
+			}
+		}
+	}
+}
+
+#content{
+	width: 100px;
+	border-left: 1px solid @white;
+}
+
+
+/**
+ * NOTE
+ * Don't add breakpoints aimed at device pixel widths,
+ * add them where they suit best for your design. 
+ */
+@media screen and (max-width: 750px){
+	
+}

@@ -1,0 +1,337 @@
+/**
+ * Form and table ect defaults.
+ */
+
+/* ========================================================== */
+/* = Box sizing makes life easier                           = */
+/* ========================================================== */
+
+*{ 
+   -webkit-box-sizing: border-box; 
+   -moz-box-sizing: border-box; 
+   box-sizing: border-box;
+}
+
+/* ========================================================== */
+/* = Set up baseline                                        = */
+/* ========================================================== */
+
+body{
+	// Optional type aliasing
+	text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+.clear{
+    clear:both;
+}
+
+// ========================================================== */
+// = Selection Colors                                       = */
+// ========================================================== */
+
+::selection{
+	background: @select;
+	color: @select_color;
+}
+::-moz-selection{
+	background: @select;
+	color: @select_color;
+}
+img::selection{
+	background: transparent;
+}
+img::-moz-selection{
+	background: transparent;
+}
+body{
+	-webkit-tap-highlight-color: @select;
+}
+
+// ========================================================== */
+// = Links                                                  = */
+// ========================================================== */
+
+a{
+	color:@link;
+    text-decoration: none;
+	&:hover, &:focus{
+	    color: @link_hover;
+	}
+
+	// Optional transition
+	-webkit-transition:all .2s linear;
+	-moz-transition:all .2s linear;
+	-o-transition:all .2s linear;
+	transition:all .2s linear;
+}
+
+// ========================================================== */
+// = Images                                                 = */
+// ========================================================== */
+
+// Make images responsive
+figure img{
+    width: 100%;
+    height: auto;
+    display:block;
+}
+
+// Figcaption colour
+figcaption{
+    color:@grey_dark;
+}
+
+// ========================================================== */
+// = Lists                                                  = */
+// ========================================================== */
+
+ul,ol,dl{
+    margin:0;
+    margin-bottom: 1.5em;
+}
+
+nav ul{
+    .nav-menu();
+}
+
+// ========================================================== */
+// = Forms                                                  = */
+// ========================================================== */
+
+form{
+    //margin-bottom:1.5em;
+}
+
+form ul{
+    list-style-type:none;
+    list-style-image:none;
+    margin:0;
+    padding:0;
+    li{
+        .clearfix();
+        margin-bottom:1.5em;
+        div.error{
+        	font-size:small;
+        	color:red;
+        	text-align:right;
+        }
+    }
+}
+form ul.form_submit{
+    clear:both;
+    padding-top: 1.5em;
+}
+
+fieldset{
+    /*margin:0;
+    padding:1.5em;*/
+}
+
+label{
+    display:block;
+    color:@blue;
+    outline: none;
+    font-weight: bold;
+}
+
+label.inline{
+    display:inline;
+    //padding-right: 24px;
+}
+
+input,
+textarea,
+select{
+    &:focus{
+        outline: 0px; // Probably should leave outlines?
+        -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+        -ms-box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    }
+}
+
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="tel"],
+textarea{
+    display:block;
+    width: 100%;
+    margin:0 0 0.75em;
+    padding: 0.3em;
+    border:1px solid #e8e8e8;
+    background:#fdfdfd;
+    line-height: 1.5em;
+    font-family:@font-family;
+}
+
+select{
+    width: 100%;
+    height: 2.1em;
+    margin-bottom: 0.9em;
+    border:1px solid #e8e8e8;
+    font-family:@font-family;
+}
+
+input[type="range"],
+input[type="color"]{
+    vertical-align: middle;
+    height: 1.5em;
+    width: 100%;
+    font-family: @font-family;
+}
+
+input[type="range"]{
+    height: 1.4em;
+}
+
+input[type="color"]{
+    width: 1.5em;
+    font-family:@font-family;
+}
+
+// Time element is a little weird with the extra controls
+input[type="time"]{
+	margin: 0 0 0.55em;
+}
+
+progress,
+meter{
+    display:block;
+    width: 100%;
+    height: 1.5em;
+}
+
+input[type="submit"],
+input[type="button"]{
+    text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    
+    padding: 0.3em 2.5em 0.4em;
+    margin:0 20px 0 0;
+    font-family:@font-family;
+}
+
+// ========================================================== */
+// = Tables                                                 = */
+// ========================================================== */
+
+table       { margin-bottom: 1.4em; width:100%; border:1px solid @grey_light; border-collapse: separate;}
+th          { text-align: left;}
+thead th{
+    background:@blue;
+    text-align: left; 
+    font-size: 16px;
+    color:@white; 
+    text-shadow:0px 1px 1px RGBA(0,0,0,0.4);
+    border:0;
+    border-right: 1px solid #234B6E;
+    //border-top: 1px solid #4B7294;
+    border-left: 1px solid #4B7294;
+    //border-bottom: 1px solid #234B6E;
+    //.box-shadow( 0px 0px 0px 1px #234B6E);
+}
+thead th:first-child{
+    background-image: url(../images/title.png);
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+td:last-child, th:last-child{ border-right:0; }
+tr:last-child td{ border-bottom:0; }
+th,td,caption {
+    padding: 8px 10px;
+}
+td{
+    border:0;
+    border-bottom: 1px solid @grey_light;
+    border-right: 1px solid @grey_light;
+    border-left: 1px solid @white;
+}
+td:first-child{ border-left:0; };
+td p { margin: 0; }
+tr.alt td, tr:nth-child(even) td  { background: #f9f9f9; }
+tfoot       { font-style: italic; }
+caption     { background: #999; }
+
+/*.download_title{
+    font-family:@body_family;
+    font-size: 15px;
+    color:@darkblue;
+}*/
+
+// ========================================================== */
+// = Other elements                                         = */
+// ========================================================== */
+
+hr {
+    background: @grey_light;
+    color: @grey_light;
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 0 0 1.4em;
+    border: none;
+}
+
+/*p{
+	margin: 0 0 1.5em 0;
+}
+
+blockquote{
+    margin: 0 1.5em 1.5em;
+    font-style: italic;
+}
+
+mark{
+    line-height: 1.5;
+    background: @select;
+    color: @select_color;
+}
+
+del{
+    color:@grey_light;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, serif;
+    line-height: 1.5;
+    margin: 0 0 1.5em 0;
+}
+
+ins,
+small{
+    line-height: 1.5;
+}
+
+kbd,
+samp{
+    line-height: 1.4;
+}
+
+hr {
+    background: @grey_regular;
+    color: @grey_regular;
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 0 0 1.4em;
+    border: none;
+}*/
