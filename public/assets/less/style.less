@@ -18,6 +18,7 @@
 @import "libs/typeplate.less";
 @import "libs/grid.less";
 @import "libs/mixins.less";
+@import "ui.less";
 @import "swatch.less";
 @import "defaults.less";
 @import "settings.less";
@@ -39,8 +40,8 @@ nav#charon{
 	top:0;
 	bottom:0;
 	background: url(../images/bg-sidebar.png) top left repeat-y #333;
+	text-align: center;
 	ul{
-		text-align: center;
 		border-bottom: 1px solid rgba(255,255,255,0.1);
 		li{
 			display:block;
@@ -70,6 +71,8 @@ header#worlds_birth{
 	border-bottom: 2px solid @carbon_dark;
 	border-left: 1px solid @carbon_light;
 	color:@white;
+	margin-left:-1px;
+	padding-left: 1px;
 	>div{
 		.row();
 		>div{
@@ -82,7 +85,7 @@ header#worlds_birth{
 				float:left;
 				line-height: 40px;
 				margin-top: 30px;
-				padding-left: 1.5em;
+				padding-left: 1.8em;
 				border-left: 1px solid @carbon_dark;
 				position:relative;
 				&:before{
@@ -95,13 +98,43 @@ header#worlds_birth{
 					top:0;
 				}
 			}
+			>a{
+				display:block;
+				float:right;
+				line-height: 100px;
+			}
 		}
 	}
 }
 
 #content{
-	width: 100px;
-	border-left: 1px solid @white;
+	.row();
+	padding-top: 1.5em;
+	padding-bottom: 1.5em;
+	>div{
+		.column(12);
+		h1{
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+	}
+	>section{
+		.column(8);
+		padding-right:0;
+	}
+	>aside{
+		.column(4);
+	}
+	>section, >aside{
+		>div{
+			.BOX_SHADOW();
+			background:@white;
+			padding:1.5em;
+			>*:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}
 }
 
 

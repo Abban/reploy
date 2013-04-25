@@ -10,16 +10,16 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Responsable Grid System</title>
+	<title>Github FTP Deployment - Reploy</title>
 
 	<meta name="description" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-	<link rel="shortcut icon" href="assets/images/favicon.ico">
-	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="assets/images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="assets/images/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="{{ URL::to_asset('assets/images/favicon.ico') }}">
+	<link rel="apple-touch-icon" href="{{ URL::to_asset('assets/images/apple-touch-icon-57x57.png') }}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{{ URL::to_asset('assets/images/apple-touch-icon-72x72.png') }}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{{ URL::to_asset('assets/images/apple-touch-icon-114x114.png') }}">
 
 	{{ HTML::style('assets/css/style.css') }}
 	{{ HTML::script('assets/js/script-ck.js') }}

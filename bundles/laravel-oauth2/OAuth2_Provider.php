@@ -118,7 +118,7 @@ abstract class OAuth2_Provider {
 
 		$params = array(
 			'client_id' 		=> $this->client_id,
-			'redirect_url' 		=> isset($options['redirect_uri']) ? $options['redirect_uri'] : $this->redirect_uri,
+			'redirect_uri' 		=> isset($options['redirect_uri']) ? $options['redirect_uri'] : $this->redirect_uri,
 			'state' 			=> $state,
 			'scope'				=> is_array($this->scope) ? implode($this->scope_seperator, $this->scope) : $this->scope,
 			'response_type' 	=> 'code',
@@ -147,7 +147,7 @@ abstract class OAuth2_Provider {
 		{
 			case 'authorization_code':
 				$params['code'] = $code;
-				$params['redirect_url'] = isset($options['redirect_uri']) ? $options['redirect_uri'] : $this->redirect_uri;
+				$params['redirect_uri'] = isset($options['redirect_uri']) ? $options['redirect_uri'] : $this->redirect_uri;
 			break;
 
 			case 'refresh_token':

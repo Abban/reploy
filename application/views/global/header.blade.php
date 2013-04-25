@@ -5,12 +5,14 @@
 		<div>
 			
 			<figure id="logo">
-				<a href="/">{{ HTML::image('assets/images/logo.png', 'Reploy') }}</a>
+				<a href="{{ URL::to('dashboard') }}">{{ HTML::image('assets/images/logo.png', 'Reploy') }}</a>
 			</figure>
 			
 			<div>
 				Deploy your Github repositories
 			</div>
+
+			{{ HTML::link('logout', 'Log Out', array('id' => 'logout')) }}
 			
 		</div>
 	

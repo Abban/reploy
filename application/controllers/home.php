@@ -32,17 +32,79 @@ class Home_Controller extends Base_Controller {
 
 	public function action_index()
 	{
-		$members = Member::all();
 		return View::make('home.index');
 	}
 
-	public function action_test_member()
+	public function action_login()
 	{
-		/*$user = new Member();
-		$user->name = 'Abban Dunne';
-		$user->save();*/
+		return View::make('home.login');
+	}
 
-		echo 'Member Created';
+	public function action_auth()
+	{
+	    Bundle::start('laravel-oauth2');
+
+	    $provider = OAuth2::provider('github', array(
+			'id'           => '0133deb451435c48cb04',
+			'secret'       => '27e9749621c5d16672eccd81de6f37f3fdc1f8f1',
+			'redirect_uri' => URL::to('login')
+	    ));
+
+	    if ( ! isset($_GET['code']))
+	    {
+	        // By sending no options it'll come back here
+	        return $provider->authorize();
+	    }
+	    else
+	    {
+	        // Howzit?
+	        try
+	        {
+	            $params = $provider->access($_GET['code']);
+
+	            $token = new OAuth2_Token_Access(array('access_token' => $params->access_token));
+	            $user = $provider->get_user_info($token);
+
+	            // look for user in database if not found add their name and id from github
+	            $member = Member::where('gh_id', '=', $user['uid'])->first();
+	            if(!$member)
+	            {
+	            	$member = new Member();
+	            	$member->name = $user['name'];
+	            	$member->email = $user['email'];
+	            	$member->gh_id = $user['uid'];
+		            $member->access_token = $token;
+		            $member->save();
+	            }
+
+	            Session::put('is_logged_in', true);
+	            Session::put('user.access_token', $member->access_token);
+	            Session::put('user.gh_id', $member->gh_id);
+	            Session::put('user.id', $member->id);
+	            Session::put('user.name', $member->name);
+
+	            return Redirect::to('/dashboard');
+	        }
+
+
+
+	        catch (OAuth2_Exception $e)
+	        {
+	            show_error('That didnt work: '.$e);
+	        }
+
+	    }
+	}
+
+	public function action_dashboard()
+	{
+		return View::make('home.dashboard');
+	}
+
+	public function action_logout()
+	{
+		Session::flush();
+		return Redirect::to('/');
 	}
 
 	private function _debug($obj){

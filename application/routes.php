@@ -33,13 +33,32 @@
 */
 
 Route::get('/', 'home@index');
+Route::get('login', 'home@login');
+Route::get('auth', 'home@auth');
 
-Route::get('/member', 'home@test_member');
-
-/*Route::get('/', function()
+Route::filter('oauth', function()
 {
-	return View::make('home.index');
-});*/
+	if(!Session::has('is_logged_in')) return Redirect::to('/login');
+});
+
+Route::group(array('before' => 'oauth'), function()
+{
+	Route::get('dashboard', 'home@dashboard');
+	Route::get('logout', 'home@logout');
+
+	// Deployments
+	Route::any('deployments', 'deployments@index');
+	Route::get('deployments/view/(:num)', 'deployments@view');
+	Route::get('deployments/create', 'deployments@create');
+	Route::post('deployments/create', array('before' => 'csrf', 'uses' => 'deployments@create'));
+	Route::get('deployments/edit/(:num)', 'deployments@edit');
+	Route::post('deployments/edit/(:num)', array('before' => 'csrf', 'uses' => 'deployments@edit'));
+
+	// Other pages
+	Route::any('settings', 'settings@index');
+	Route::any('about', 'pages@about');
+});
+
 
 /*
 |--------------------------------------------------------------------------
