@@ -27,4 +27,12 @@ $(function(){
 
 $(function(){
 	//$('figure.responsive').picture({ container : $('#content') });
+	
+	$('.message').delay(5000).slideUp();
+
+	$('div.select').each(function(){
+		$('>ul', this).hide();
+	}).hover(function(){
+		$('>ul', this).toggle();
+	});
 });

@@ -24,6 +24,13 @@
 	{{ HTML::style('assets/css/style.css') }}
 	{{ HTML::script('assets/js/script-ck.js') }}
 
+	<script>
+		var site_url = "{{ URL::base() }}";
+	</script>
+	@if (Session::has('is_logged_in' && 1==2))
+		{{ HTML::script('assets/js/app-ck.js') }}
+	@endif
+
 </head>
 
 <body>

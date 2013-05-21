@@ -3,7 +3,7 @@
 class Deployment extends Eloquent {
 	
 	private $rules = array(
-		'name'     => 'required|alpha|min:3',
+		'name'     => 'required|min:3',
 		'host'     => 'required',
 		'path'     => 'required',
 		'username' => 'required',
@@ -13,9 +13,9 @@ class Deployment extends Eloquent {
 
     private $errors;
 
-    public function member()
+    public function members()
     {
-          return $this->has_one('Member');
+          return $this->has_many_and_belongs_to('Member', 'member_deployment');
     }
 
     public function activity()

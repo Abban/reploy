@@ -34,6 +34,8 @@
 */
 
 return array(
-	'docs' => array('handles' => 'docs'),
+	'docs'           => array('handles' => 'docs'),
 	'laravel-oauth2' => array('auto' => true),
+	'sftp'           => array('auto' => true, 'handles' => 'sftp'),
+	'datefmt'        => array('autoloads' => array( 'map' => array('DateFmt' => '(:bundle)/datefmt.php')))
 );

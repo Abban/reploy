@@ -34,24 +34,27 @@ class Deployments_Controller extends Base_Controller {
 
 	public function action_index()
 	{
-		$this->data['deployments'] = Deployment::where('member_id', '=', Session::get('user.id'))->get();
+		$this->data['deployments'] = Member::find(Session::get('user.id'))->deployments()->get();
 		return View::make('deployments.index', $this->data);
 	}
 
 	public function action_view($id = NULL)
 	{
-		if(!$id){
+		if(!$id)
+		{
 			Session::flash('message', 'That deployment does not exist.');
 		    return Redirect::to('/deployments');
 		}
 
-		if(!$this->data['deployment'] = Deployment::find($id)->where('member_id', '=', Session::get('user.id'))->first())
+		if(!$this->data['deployment'] = Member::find(Session::get('user.id'))->deployments()->where('deployment_id', '=', $id)->first())
 		{
-			Session::flash('message', 'You are not allowed to edit that deployment.');
+			Session::flash('message', 'You are not allowed to view this deployment.');
 		    return Redirect::to('/deployments');
 		}
 		else
 		{
+			$github = new Github();
+			$this->data['commits'] = $github->commits($this->data['deployment']->repository);
 			return View::make('deployments.view', $this->data);
 		}
 	}
@@ -63,23 +66,27 @@ class Deployments_Controller extends Base_Controller {
 
 	public function action_edit($id = NULL)
 	{
-		$d = ($id) ? Deployment::find($id)->where('member_id', '=', Session::get('user.id'))->first() : new Deployment();
+		$m = Member::find(Session::get('user.id'));
+		$d = ($id) ? $m->deployments()->where('deployment_id', '=', $id)->first() : new Deployment();
 
 		if($post = Input::get())
 		{
 			if($d->validate($post))
 			{
-				$d->member_id = Session::get('user.id');
-				$d->name      = Input::get('name');
-				$d->host      = Input::get('host');
-				$d->path      = Input::get('path');
-				$d->username  = Input::get('username');
-				$d->password  = Input::get('password');
-				$d->port      = Input::get('port');
-			    $d->save();
+				$deployment = array(
+					'name'       => Input::get('name'),
+					'repository' => Input::get('repository'),
+					'branch'     => Input::get('branch'),
+					'host'       => Input::get('host'),
+					'path'       => Input::get('path'),
+					'username'   => Input::get('username'),
+					'password'   => Input::get('password'),
+					'port'       => Input::get('port'),
+				);
+				($id) ? $d->fill($deployment)->save() : $m->deployments()->insert($deployment);
 
 			    Session::flash('message', 'Your deployment was saved.');
-			    return Redirect::to('/deployments/edit/' .$d->id);
+			    return Redirect::to('/deployments');
 			}
 			else
 			{
@@ -87,7 +94,32 @@ class Deployments_Controller extends Base_Controller {
 			    $this->data['errors'] = $d->errors();
 			}
 		}
+
+		$github = new Github();
+		$this->data['repos'][''] = 'Select Repository';
+		foreach($github->repos() as $repo)
+		{
+			$this->data['repos'][$repo->name] = $repo->full_name;
+		}
+
+		$this->data['branches'][''] = 'Select Branch';
+		if($id){
+			foreach($github->branches($d->repository) as $branch)
+			{
+				$this->data['branches'][$branch->name] = $branch->name;
+			}
+		}
+
+		$this->data['title'] = ($id) ? 'Edit: ' .$d->name : 'Create New Deployment';
 		$this->data['deployment'] = $d;
 		return View::make('deployments.edit', $this->data);
+	}
+
+	public function action_delete($id)
+	{
+		Member::find(Session::get('user.id'))->deployments()->where('deployment_id', '=', $id)->first()->delete();
+
+		Session::flash('message', 'Your deployment was deleted.');
+	    return Redirect::to('/deployments');
 	}
 }

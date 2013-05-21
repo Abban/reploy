@@ -4,4 +4,6 @@ Landing
 
 {{ HTML::link('auth', 'Login') }}
 
-@include('global.footer')
+</body>
+
+</html>

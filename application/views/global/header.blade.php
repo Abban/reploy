@@ -12,10 +12,14 @@
 				Deploy your Github repositories
 			</div>
 
-			{{ HTML::link('logout', 'Log Out', array('id' => 'logout')) }}
+			{{ HTML::link('logout', 'Log Out', array('id' => 'logout', 'class' => 'button')) }}
 			
 		</div>
 	
 	</div>
 
 </header>
+
+<div id="content">
+	@include('global.message')
+	@include('global.nav')
