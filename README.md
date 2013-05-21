@@ -6,10 +6,11 @@ Testing Github repo deployment. This is a work in progress, unless you want to c
 # Installation
 
 For now it needs a manual installation.
-1 Create a table in your database.
-2 Import the tables from <code>installation > tables.sql</code>.
-3 Open <code>application > config > database.php</code> and add your database details.
-4 Navigate to whatever URL you set it up on and hit the login button. It will then validate through Github Oauth.
+
+1. Create a table in your database.
+2. Import the tables from <code>installation > tables.sql</code>.
+3. Open <code>application > config > database.php</code> and add your database details.
+4. Navigate to whatever URL you set it up on and hit the login button. It will then validate through Github Oauth.
 
 # To Do
 
