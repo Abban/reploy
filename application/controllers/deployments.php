@@ -4,12 +4,31 @@ class Deployments_Controller extends Base_Controller {
 
 	private $data = array();
 
+	/**
+	 * index
+	 *
+	 * Loads the index page
+	 * TODO: Add a list of general activity
+	 * 
+	 * @return string
+	 */
 	public function action_index()
 	{
 		$this->data['deployments'] = Member::find(Session::get('user.id'))->deployments()->get();
 		return View::make('deployments.index', $this->data);
 	}
 
+
+
+	/**
+	 * view
+	 *
+	 * Shows a the Github commits for a single deployment
+	 * TODO: Mark the commit that was deployed last
+	 * 
+	 * @param  int $id
+	 * @return string
+	 */
 	public function action_view($id = NULL)
 	{
 		if(!$id)
@@ -31,11 +50,31 @@ class Deployments_Controller extends Base_Controller {
 		}
 	}
 
+
+
+	/**
+	 * create
+	 *
+	 * Just calls the edit
+	 * TODO: Maybe just move this to routes
+	 * 
+	 * @return void
+	 */
 	public function action_create()
 	{
 		return $this->action_edit();
 	}
 
+
+
+	/**
+	 * edit
+	 *
+	 * Create or edit a new deployment
+	 * 
+	 * @param  int $id
+	 * @return string
+	 */
 	public function action_edit($id = NULL)
 	{
 		$m = Member::find(Session::get('user.id'));
@@ -88,6 +127,17 @@ class Deployments_Controller extends Base_Controller {
 		return View::make('deployments.edit', $this->data);
 	}
 
+
+
+	/**
+	 * delete
+	 *
+	 * Removes a repo
+	 * TODO: Recursive delete of history?
+	 * 
+	 * @param  int $id
+	 * @return void
+	 */
 	public function action_delete($id)
 	{
 		Member::find(Session::get('user.id'))->deployments()->where('deployment_id', '=', $id)->first()->delete();
@@ -96,6 +146,19 @@ class Deployments_Controller extends Base_Controller {
 	    return Redirect::to('/deployments');
 	}
 
+
+
+	/**
+	 * deploy
+	 *
+	 * Deploys the selected commit.
+	 * TODO: Maybe make this ajax driven.
+	 * TODO: Figure out an events model for this so there is a progress bar?
+	 * 
+	 * @param  int $id
+	 * @param  hash $commit
+	 * @return string
+	 */
 	public function action_deploy($id = NULL, $commit = NULL)
 	{
 		if(!$id || !$commit)
@@ -113,17 +176,7 @@ class Deployments_Controller extends Base_Controller {
 			else
 			{
 				$github = new Github();
-
-				if(!$d->last_deployment)
-				{
-					$this->data['commit'] = $github->commit($d->repository, $commit);
-				}
-				else
-				{
-					$this->data['commit'] = $github->compare($d->repository, $commit, $d->last_deployment);
-				}
-
-				$this->data['commit']     = $github->commit($d->repository, $commit);
+				$this->data['commit'] = (!$d->last_deployment) ? $github->commit($d->repository, $commit) : $github->compare($d->repository, $commit, $d->last_deployment);
 				$this->data['deployment'] = $d;
 				return View::make('deployments.deploy', $this->data);
 			}
