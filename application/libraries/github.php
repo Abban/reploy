@@ -29,14 +29,26 @@ class Github {
     {
     	$url = $this->base_url .'repos/' .Session::get('user.nickname') .'/' .$name .'/downloads';
     	return $this->_request($url);
-
-    	//https://api.github.com/repos/Abban/jQuery-Picture/zipball/master
     }
 
     public function commits($name)
     {
     	// repos/:owner/:repo/commits
     	$url = $this->base_url .'repos/' .Session::get('user.nickname') .'/' .$name .'/commits';
+    	return $this->_request($url);
+    }
+
+    public function commit($name, $commit)
+    {
+    	// repos/:owner/:repo/commits/:sha
+    	$url = $this->base_url .'repos/' .Session::get('user.nickname') .'/' .$name .'/commits/' .$commit;
+    	return $this->_request($url);
+    }
+
+    public function compare($name, $commit, $last_commit)
+    {
+    	// repos/:owner/:repo/compare/:base...:head
+    	$url = $this->base_url .'repos/' .Session::get('user.nickname') .'/' .$name .'/compare/' .$commit .'...' .$last_commit;
     	return $this->_request($url);
     }
 
@@ -69,6 +81,16 @@ class Github {
 		return json_decode(curl_exec($curl));
     }
 
+    /**
+     * zipball
+     *
+     * Hacking the bundle importer to grab a repo
+     * 
+     * @param  string $url
+     * @param  string $bundle
+     * @param  string $path
+     * @return void
+     */
     public function zipball($url, $bundle, $path)
 	{
 		$work = path('storage').'github/';

@@ -15,12 +15,12 @@ class Deployment extends Eloquent {
 
     public function members()
     {
-          return $this->has_many_and_belongs_to('Member', 'member_deployment');
+        return $this->has_many_and_belongs_to('Member', 'member_deployment');
     }
 
-    public function activity()
+    public function history()
     {
-          return $this->has_many('Activity');
+        return $this->has_many('History');
     }
 
     public function validate($data)

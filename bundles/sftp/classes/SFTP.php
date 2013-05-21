@@ -322,8 +322,8 @@ class SFTP {
 	    $dir = dir($directory);
 	    while(($file = $dir->read()) !== false)
 	    { 
-	        if(is_dir($dir->path.'/'.$file)) { 
-
+	        if(is_dir($dir->path.'/'.$file))
+	        { 
 	            if (($file == '.') or ($file == '..'))
 	            { 
 	                continue; 
@@ -334,15 +334,13 @@ class SFTP {
 	            	$this->mkdir($file);
 	            	$this->cd($file);
 	            }
-	             
+	            
 	            $this->put_folder($dir->path.'/'.$file);
-
 	            $this->cd('..');
-
-	        }else{
-
+	        }
+	        else
+	        {
 	            $this->put($dir->path.'/'.$file, $file);
-
 	        } 
 	    } 
 	    $dir->close(); 

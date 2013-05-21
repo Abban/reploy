@@ -4,12 +4,12 @@ class Member extends Eloquent {
 	
 	public function deployments()
     {
-          return $this->has_many_and_belongs_to('Deployment', 'member_deployment', 'member_id', 'deployment_id');
+		return $this->has_many_and_belongs_to('Deployment', 'member_deployment', 'member_id', 'deployment_id');
     }
 
-    public function activity()
+    public function history()
     {
-          return $this->has_many('Activity');
+		return $this->has_many('History');
     }
 
 }

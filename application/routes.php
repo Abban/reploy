@@ -64,6 +64,7 @@ Route::group(array('before' => 'oauth'), function()
 	Route::get('deployments/edit/(:num)', 'deployments@edit');
 	Route::post('deployments/edit/(:num)', array('before' => 'csrf', 'uses' => 'deployments@edit'));
 	Route::get('deployments/delete/(:num)', 'deployments@delete');
+	Route::get('deployments/deploy/(:num)/(:any)', 'deployments@deploy');
 
 	// Other pages
 	Route::any('settings', 'settings@index');

@@ -6,12 +6,12 @@ class History extends Eloquent {
 	
 	public function member()
     {
-          return $this->has_one('Member');
+        return $this->has_one('Member');
     }
 
     public function deployment()
     {
-          return $this->has_one('Deployment');
+        return $this->has_one('Deployment');
     }
 
 }

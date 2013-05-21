@@ -2,34 +2,6 @@
 
 class Deployments_Controller extends Base_Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| The Default Controller
-	|--------------------------------------------------------------------------
-	|
-	| Instead of using RESTful routes and anonymous functions, you might wish
-	| to use controllers to organize your application API. You'll love them.
-	|
-	| This controller responds to URIs beginning with "home", and it also
-	| serves as the default controller for the application, meaning it
-	| handles requests to the root of the application.
-	|
-	| You can respond to GET requests to "/home/profile" like so:
-	|
-	|		public function action_profile()
-	|		{
-	|			return "This is your profile!";
-	|		}
-	|
-	| Any extra segments are passed to the method as parameters:
-	|
-	|		public function action_profile($id)
-	|		{
-	|			return "This is the profile for user {$id}.";
-	|		}
-	|
-	*/
-
 	private $data = array();
 
 	public function action_index()
@@ -103,7 +75,8 @@ class Deployments_Controller extends Base_Controller {
 		}
 
 		$this->data['branches'][''] = 'Select Branch';
-		if($id){
+		if($id)
+		{
 			foreach($github->branches($d->repository) as $branch)
 			{
 				$this->data['branches'][$branch->name] = $branch->name;
@@ -121,5 +94,39 @@ class Deployments_Controller extends Base_Controller {
 
 		Session::flash('message', 'Your deployment was deleted.');
 	    return Redirect::to('/deployments');
+	}
+
+	public function action_deploy($id = NULL, $commit = NULL)
+	{
+		if(!$id || !$commit)
+		{
+			Session::flash('message', 'That repo or commit does not exist.');
+		    return Redirect::to('/deployments');
+		}
+		else
+		{
+			if(!$d = Member::find(Session::get('user.id'))->deployments()->where('deployment_id', '=', $id)->first())
+			{
+				Session::flash('message', 'You are not allowed to view this deployment.');
+			    return Redirect::to('/deployments');
+			}
+			else
+			{
+				$github = new Github();
+
+				if(!$d->last_deployment)
+				{
+					$this->data['commit'] = $github->commit($d->repository, $commit);
+				}
+				else
+				{
+					$this->data['commit'] = $github->compare($d->repository, $commit, $d->last_deployment);
+				}
+
+				$this->data['commit']     = $github->commit($d->repository, $commit);
+				$this->data['deployment'] = $d;
+				return View::make('deployments.deploy', $this->data);
+			}
+		}
 	}
 }

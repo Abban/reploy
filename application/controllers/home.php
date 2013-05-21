@@ -69,16 +69,17 @@ class Home_Controller extends Base_Controller {
 	            $member = Member::where('gh_id', '=', $user['uid'])->first();
 	            if(!$member)
 	            {
-	            	$member = new Member();
-	            	$member->nickname = $user['nickname'];
-	            	$member->name = $user['name'];
-	            	$member->email = $user['email'];
-	            	$member->gh_id = $user['uid'];
-		            $member->access_token = $token->access_token;
+					$member               = new Member();
+					$member->nickname     = $user['nickname'];
+					$member->name         = $user['name'];
+					$member->email        = $user['email'];
+					$member->gh_id        = $user['uid'];
+					$member->access_token = $token->access_token;
 		            $member->save();
 	            }
 
-	            if($token->access_token != $member->access_token){
+	            if($token->access_token != $member->access_token)
+	            {
 	            	$member->access_token = $token->access_token;
 		            $member->save();
 	            }
@@ -92,9 +93,6 @@ class Home_Controller extends Base_Controller {
 
 	            return Redirect::to('/dashboard');
 	        }
-
-
-
 	        catch (OAuth2_Exception $e)
 	        {
 	            show_error('That didnt work: '.$e);
@@ -114,7 +112,8 @@ class Home_Controller extends Base_Controller {
 		return Redirect::to('/');
 	}
 
-	private function _debug($obj){
+	private function _debug($obj)
+	{
 		echo '<pre>';
 		print_r($obj);
 		echo '</pre>';

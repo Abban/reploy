@@ -24,7 +24,6 @@
 	<div class="box">
 		<h4>Contributors</h4>
 		<ul class="contributors">
-			@for ($i=0; $i<10; $i++)
 			@foreach ($collaborators as $collaborator)
 				<li>
 					<figure>
@@ -33,7 +32,6 @@
 					{{ HTML::link($collaborator->url, $collaborator->login) }}
 				</li>
 			@endforeach
-			@endfor
 		</ul>
 	</div>
 
