@@ -1,0 +1,270 @@
+/* http://sonspring.com/journal/clearing-floats */
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+.clearfix {
+  zoom: 1;
+}
+/* ==================== */
+/* = Default Stylings = */
+/* ==================== */
+body {
+  color: #222;
+  font: normal normal 400 100%/1.5em georgia, serif;
+  margin: 3em auto;
+  max-width: 40em;
+  padding: 0 2em;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a:link {
+  color: #3366CC;
+}
+a:visited {
+  color: #224488;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+h1 {
+  font-size: 225%;
+  line-height: 1.3334em;
+  margin: 0 0 .1666em;
+}
+h2 {
+  font-size: 175%;
+  line-height: 1.28571429em;
+  margin: 0 0 .35714286em;
+}
+h3 {
+  font-size: 137.5%;
+  line-height: 1.3636em;
+  margin: 0 0 .5em;
+}
+h4,
+h5,
+h6 {
+  font-size: 112.5%;
+  line-height: 1.3334em;
+  margin: 0 0 .7778em;
+}
+ol,
+ul {
+  list-style-position: outside;
+  padding: 0;
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+  margin: 0 0 0.75em 2em;
+}
+blockquote,
+ol,
+p,
+ul {
+  display: block;
+  margin: 0 0 1.5em;
+}
+blockquote {
+  border-left: solid .1em #E4E4E4;
+  color: #919191;
+  padding: 0 1.5em 0 1.4em;
+}
+code {
+  font: normal normal 87.5%/1.71428571em monospace, sans-serif;
+  background: #eee;
+}
+img {
+  display: block;
+  margin: 1.5em auto;
+}
+pre {
+  font: normal normal 87.5%/1.71428571em monospace, sans-serif;
+  padding: 0.857142855em 1.71428571em;
+  background: #eee;
+  display: block;
+  overflow: auto;
+}
+table {
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  width: 100%;
+}
+td,
+th {
+  border: solid .1em #eee;
+  font-size: 87.5%;
+  line-height: 1.71428571em;
+  text-align: left;
+  padding: 5px 10px;
+  font-weight: normal;
+}
+th {
+  background: #eee;
+  border-right: 1px solid #ddd;
+}
+th:last-child {
+  border-right: 1px solid #eee;
+}
+td.green {
+  background: #a7b559;
+  color: #fff;
+}
+td.red {
+  background: #9d4b37;
+  color: #fff;
+}
+figure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+figure img {
+  width: 100%;
+  margin-bottom: 0;
+}
+picture img {
+  width: 100%;
+}
+figcaption {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  font-size: 12px;
+  margin-bottom: 1.5em;
+}
+/* =================== */
+/* = Custom Stylings = */
+/* =================== */
+header {
+  padding-left: 130px;
+  margin-bottom: 2em;
+  background: url(../images/logo.png) top left no-repeat;
+}
+header p {
+  color: #666;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 14px;
+}
+#buttons {
+  margin: 0 -5% 1.5em;
+}
+#buttons a {
+  display: block;
+  background: #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 2.6em;
+  width: 40%;
+  margin: 0 5%;
+  float: left;
+  text-decoration: none;
+  color: #111;
+}
+#buttons a:hover,
+#buttons a:focus {
+  background: #3366CC;
+  color: #fff;
+}
+#resize {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  background: url(../images/bg.png) bottom right no-repeat;
+  height: 77px;
+  width: 77px;
+}
+footer {
+  font-size: small;
+  border-top: 1px solid #ddd;
+  padding: 1.5em 0;
+}
+footer p {
+  float: left;
+}
+footer div {
+  float: right;
+}
+.plug {
+  background: #e1f0de;
+  padding: 0.75em;
+  margin-top: -1.5em;
+  margin-bottom: 1.5em;
+  position: relative;
+}
+.plug > a {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 16px;
+  width: 16px;
+  background: url(../images/close.png);
+  overflow: hidden;
+  text-indent: 100%;
+}
+.plug p {
+  margin-bottom: 0;
+}
+@media screen and (max-width: 600px) {
+  #resize {
+    display: none;
+  }
+  #buttons a {
+    line-height: 2em;
+  }
+}
+@media screen and (max-width: 440px) {
+  header {
+    background: transparent;
+    padding-left: 0;
+  }
+  #resize {
+    display: none;
+  }
+  footer div {
+    clear: both;
+    float: left;
+  }
+}

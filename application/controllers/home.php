@@ -70,10 +70,16 @@ class Home_Controller extends Base_Controller {
 	            if(!$member)
 	            {
 	            	$member = new Member();
+	            	$member->nickname = $user['nickname'];
 	            	$member->name = $user['name'];
 	            	$member->email = $user['email'];
 	            	$member->gh_id = $user['uid'];
-		            $member->access_token = $token;
+		            $member->access_token = $token->access_token;
+		            $member->save();
+	            }
+
+	            if($token->access_token != $member->access_token){
+	            	$member->access_token = $token->access_token;
 		            $member->save();
 	            }
 
@@ -82,6 +88,7 @@ class Home_Controller extends Base_Controller {
 	            Session::put('user.gh_id', $member->gh_id);
 	            Session::put('user.id', $member->id);
 	            Session::put('user.name', $member->name);
+	            Session::put('user.nickname', $member->nickname);
 
 	            return Redirect::to('/dashboard');
 	        }

@@ -41,10 +41,20 @@ Route::filter('oauth', function()
 	if(!Session::has('is_logged_in')) return Redirect::to('/login');
 });
 
+Route::filter('api', function()
+{
+	//Event::override('laravel.done', function(){});
+	//if(!Session::has('is_logged_in')) return Response::json(['error' => true], 401);
+});
+
 Route::group(array('before' => 'oauth'), function()
 {
 	Route::get('dashboard', 'home@dashboard');
 	Route::get('logout', 'home@logout');
+
+	// Repos
+	Route::any('repositories', 'repositories@index');
+	Route::get('repositories/view/(:all)', 'repositories@view');
 
 	// Deployments
 	Route::any('deployments', 'deployments@index');
@@ -53,10 +63,17 @@ Route::group(array('before' => 'oauth'), function()
 	Route::post('deployments/create', array('before' => 'csrf', 'uses' => 'deployments@create'));
 	Route::get('deployments/edit/(:num)', 'deployments@edit');
 	Route::post('deployments/edit/(:num)', array('before' => 'csrf', 'uses' => 'deployments@edit'));
+	Route::get('deployments/delete/(:num)', 'deployments@delete');
 
 	// Other pages
 	Route::any('settings', 'settings@index');
 	Route::any('about', 'pages@about');
+});
+
+Route::group(array('before' => 'api'), function()
+{
+	Route::get('api/repositories', 'api@repositories');
+	Route::get('api/branches/(:all)', 'api@branches');
 });
 
 

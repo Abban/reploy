@@ -4,6 +4,8 @@ class OAuth2_Provider_Github extends OAuth2_Provider {
 
 	public $name = 'github';
 
+	public $scope = array('user', 'repo');
+
 	// https://api.github.com
 
 	public function url_authorize()
